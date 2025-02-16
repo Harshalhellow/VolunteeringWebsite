@@ -1,0 +1,242 @@
+:root {
+    /* Global Variables */
+    --color1: #B5C0D0;
+    /* Permanent Content */
+    --color2: #CCD3CA;
+    /* Button pressed/hover */
+    --color3: #fffcf5;
+    /* Background */
+    --color4: #e3e6f0;
+    /* Objects, buttons rest, blocks */
+    --textColor: #000000;
+    /* Text, border color*/
+}
+
+/* login stuff */
+/* Popup container - can be anything you want */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+/* Popup content */
+.popup-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+body {
+    background-color: var(--color3);
+    color: var(--textColor);
+    font-family: Arial, sans-serif;
+    margin: 0px;
+}
+
+button {
+    background-color: var(--color4);
+    color: var(--textColor);
+    border: 1px solid var(--textColor);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color2);
+}
+
+.buttons a {
+    background-color: var(--color4);
+    color: var(--textColor);
+    border: 1px solid var(--textColor);
+    cursor: pointer;
+}
+
+.buttons a:hover {
+    background-color: var(--color2);
+}
+
+
+
+
+/* pageOutline stuff */
+header {
+    background-color: var(--color1);
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--textColor);
+
+    clear: both;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    color: var(--textColor);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+header .buttons {
+    display: flex;
+    gap: 1%;
+}
+
+header .buttons a {
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+#sidebar {
+    /*width: 20%;
+  max-width: 120px;
+  float: left;
+  background-color: var(--color1);
+  color: var(--textColor);
+  border-right: 2px solid var(--textColor);
+  height: 85vh;
+  box-sizing: border-box;
+  padding: 1%;
+  */
+
+
+    /* margin: 0;
+    padding: 0;
+    width: 5%;
+    height: 100%;
+    background-color: var(--color1);
+    position: fixed;
+    float: left;
+    overflow: auto; */
+
+    width: 120px; /* Adjust as needed */
+    height: calc(100vh - 80px); /* Subtract header height from viewport height */
+    background-color: var(--color1);
+    position: fixed;
+    top: 80px; /* Ensure sidebar starts below header */
+    left: 0;
+    overflow: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1; /* Ensure sidebar is above other content */
+    border-right: 2px solid var(--textColor);
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar a {
+    /* display: inline-flex; */
+    margin: 5px auto;
+    border-radius: 50%;
+    width: 90px;
+    height: 60px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    align-content: center;
+}
+
+.mainContent {
+    margin-left: 120px; /* Ensure it matches sidebar width */
+    margin-top: 80px;
+    width: calc(100% - 120px); /* Adjust percentage as needed */
+    float: left;
+    /* background-color: #888; Adjust background color as needed */
+    display: flex;
+    flex-direction: column; /* Ensure content stacks correctly */
+    align-items: left; /* Center content horizontally */
+    box-sizing: border-box;
+}
+
+.horizontal-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--textColor);
+    margin: 1% 0;
+}
+
+footer {
+    /*clear: both;
+  background-color: var(--color1);
+  padding: 1%;
+  text-align: center;
+  border-top: 2px solid var(--textColor);
+  color: var(--textColor);*/
+    clear: both;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid var(--textColor);
+    background-color: var(--color1);
+    color: var(--textColor);
+    text-align: center;
+    z-index: 2;
+}
+
+
+
+
+.bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 85px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
+  .group-icon {
+    width: 75px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: fill;
+  }
+
+  .bubble span {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

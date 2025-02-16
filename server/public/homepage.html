@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/homepage.css">
+    <title>Homepage</title>
+    <script src="javascripts/homepage.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta name="google-signin-client_id" content="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com">
+</head>
+
+<body>
+    <header>
+        <h1 id="pageTitle">Volunteering is Cool!</h1>
+        <div class="buttons" id="authButtons">
+            <a href="#login" id="loginButton">Login</a>
+            <a href="#signup" id="signupButton">Sign Up</a>
+            <div id="g_id_onload"
+                 data-client_id="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div class="buttons" id="userProfileContainer" style="display: none;">
+            <span id="usernameDisplayToggle"></span>
+            <a href="/settings.html">Settings / Profile</a>
+            <button type="button" id="logoutButton" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="buttons">
+        <a href="/homepage.html" class="bubble">Home</a>
+        <a href="/volunteerGroups.html" class="bubble">Browse</a>
+        <div class="horizontal-line"></div>
+    </div>
+
+    <div class="mainContent">
+        <div id="homepage">
+            <div id="carousel" class="carousel">
+                <a href="#link1"><img src="images/group/1.png" alt="Image 1"></a>
+                <a href="#link2"><img src="images/group/2.png" alt="Image 2"></a>
+                <a href="#link3"><img src="images/group/3.png" alt="Image 3"></a>
+                <a href="#link4"><img src="images/group/4.png" alt="Image 4"></a>
+                <span class="carousel-control left" onclick="moveCarousel(-1)">&#10094;</span>
+                <span class="carousel-control right" onclick="moveCarousel(1)">&#10095;</span>
+            </div>
+
+            <div id="posts">
+                <!-- Posts will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact us or don't. I care.</p>
+    </footer>
+
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('loginPopup')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('signupPopup')">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" required>
+                <br>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="signupPassword" name="password" required>
+                <br>
+                <label for="retypePassword">Retype Password:</label>
+                <input type="password" id="retypePassword" name="retypePassword" required>
+                <br>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

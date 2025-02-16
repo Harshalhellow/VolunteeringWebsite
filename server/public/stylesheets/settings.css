@@ -1,0 +1,135 @@
+/* Outer Portion */
+#settingsPage {
+  display: grid;
+}
+
+div #btnSettingsTab {
+  outline: 2px solid var(--textColor);
+  background-color: var(--color1);
+}
+
+#btnSettingsTab .button {
+  border-right: 2px solid var(--textColor);
+  padding: 15px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  float: left;
+}
+#btnSettingsTab .buttonSelected {
+  background-color: var(--color2);
+}
+
+
+/* Profile Tab */
+#profileTab {
+  padding: 5px;
+}
+#profilePic {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 3px solid var(--textColor);
+  background-color: white;
+}
+#uploadProfilePic {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* Settings Tab */
+#settingsTab {
+  padding: 5px;
+}
+.section {
+  outline: 2px solid var(--textColor);
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.internalRule {
+  border-bottom: 2px solid var(--textColor);
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-bottom: 5px;
+}
+/* Password */
+#passwordSet {
+  margin-top: 5px;
+  display: block;
+  font-size: smaller;
+}
+/* Colors */
+.colorsSelection {
+  margin: 5px;
+  float: left;
+}
+.colorPicker {
+  height: 30px;
+  width: 30px;
+  display: block;
+  margin-top: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Manage Groups Tab */
+#mngGroupsTab {
+  padding: 5px;
+}
+#createNewGgroupBtn {
+  margin-top: 2px;
+  border: 1px solid var(--textColor);
+}
+#myGroups {
+  display: grid;
+}
+.groupBox {
+  border: 2px solid var(--textColor);
+  width: 40%;
+  min-width: 600px;
+  margin-top: 5px;
+  padding: 2px;
+}
+#groupPic {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--textColor);
+  background-color: white;
+  float: left;
+  margin: 2px;
+  margin-right: 10px;
+}
+#groupNotificationsBtn {
+  height: 30px;
+  margin: 3px;
+  float: right;
+}
+.notificationsOff {
+  filter: invert(100%);
+}
+#groupLeaveBtn {
+  margin: 3px;
+  float: right;
+}
+/* .group-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+} */
+
+#adminForm{
+  display:inline-flex;
+  position:fixed;
+  right:3em;
+  bottom:5em;
+  background-color: var(--color1);
+  color: var(--textColor);
+  padding:1em;
+  padding-left:2.98em;
+  padding-bottom:1.5em;
+  padding-right:1.5em;
+  width:12em;
+}
+

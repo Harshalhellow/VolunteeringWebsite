@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/volunteerGroups.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="javascripts/volunteerGroups.js" defer></script>
+
+    <title>Volunteer Groups</title>
+</head>
+
+<body onload="setColors()">
+    <div id="vgPage">
+
+        <header>
+            <h1 id="pageTitle">Volunteering is Cool!</h1>
+            <div class="buttons" id="authButtons">
+                <a href="#login" id="loginButton">Login</a>
+                <a href="#signup" id="signupButton">Sign Up</a>
+                <div id="g_id_onload"
+                    data-client_id="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com"
+                    data-callback="handleCredentialResponse">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
+            </div>
+            <div class="buttons" id="userProfileContainer" style="display: none;">
+                <span id="usernameDisplayToggle"></span>
+                <a href="/settings.html">Settings / Profile</a>
+                <button type="button" id="logoutButton" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <div id="sidebar" class="buttons">
+            <a href="/homepage.html" class="bubble">Home</a>
+            <a href="/volunteerGroups.html" class="bubble">Browse</a>
+            <div class="horizontal-line"></div>
+        </div>
+
+
+        <div class="mainContent">
+            <h2 class="Title">Browse Volunteer Groups</h2>
+            <!-- Section: Search Bar
+    <div id="searchContent">
+        <form id="searchForm" role="search">
+            <input type="search" id="query" v-model="searchQuery" @input="searchBar" placeholder="Search for volunteer groups..."
+        <form id="searchForm" role="search" @submit.prevent="searchGroups">
+            <input type="search" id="query" v-model="searchQuery" @input="search" placeholder="Search for volunteer groups..."
+                aria-label="Search for volunteer groups">
+                <button type="button" @click="searchGroups">
+                <button type="submit">
+                    <svg viewBox="0 0 64 64">
+                        <path d="M 24 2.8886719 C 12.365714 2.8886719 2.8886719 12.365723 2.8886719 24 C 2.8886719 35.634277 12.365714
+                                45.111328 24 45.111328 C 29.036552 45.111328 33.664698 43.331333 37.298828 40.373047 L 52.130859 58.953125 C
+                                52.130859 58.953125 55.379484 59.435984 57.396484 57.333984 C 59.427484 55.215984 58.951172 52.134766 58.951172
+                                52.134766 L 40.373047 37.298828 C 43.331332 33.664697 45.111328 29.036548 45.111328 24 C 45.111328 12.365723
+                                35.634286 2.8886719 24 2.8886719 z M 24 7.1113281 C 33.352549 7.1113281 40.888672 14.647457 40.888672 24 C
+                                40.888672 33.352543 33.352549 40.888672 24 40.888672 C 14.647451 40.888672 7.1113281 33.352543 7.1113281 24
+                                C 7.1113281 14.647457 14.647451 7.1113281 24 7.1113281 z" />
+                    </svg>
+                </button>
+        </form>
+    </div>
+-->
+
+            <!-- /ajax/groupInformation?group.id -->
+
+            <!--Section: Volunteer Group Tiles-->
+            <div class="tileContainer">
+                <div class="tileContent" v-for="item in volunteerGroups">
+                    <!-- <a style="display: block; color: var(--textColor)" :href="'group.html?groupID=' + item.groupID"> -->
+                    <a style="display: block; color: var(--textColor); cursor: pointer;"
+                        @click="gotoGroup(item.groupID)">
+                        <img :src=" 'images/group/' + item.groupID + '.png' " alt="Group Icon" id="groupPic"
+                            onerror="this.src='images/group/default.png';" />
+                        <h3 class="groupTiletext">{{ item.Group_Name }}</h3>
+                        <p class="groupDesc">{{ item.Description }}</p>
+                    </a>
+                </div>
+            </div>
+
+            <!--html code for tiles without vue
+    <div class="tileContainer">
+        <a class="pageLink" href="defaultGroupPage.html">
+            <div class="content">
+                <img class="tileImg" src="images/volunteerGroups/STEM.png" alt="STEM Tile">
+                <h3 class="groupTiletext">STEM</h3>
+                <p class="groupDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu egestas dui, at
+                    ullamcorper lacus.</p>
+            </div>
+        </a>
+    </div>
+    -->
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Contact us or don't. I care.</p>
+    </footer>
+
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('loginPopup')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="email">Email:</label>
+                <input type="text" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('signupPopup')">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" required>
+                <br>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="signupPassword" name="password" required>
+                <br>
+                <label for="retypePassword">Retype Password:</label>
+                <input type="password" id="retypePassword" name="retypePassword" required>
+                <br>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

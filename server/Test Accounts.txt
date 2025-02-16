@@ -1,0 +1,11 @@
+Username: Joe Blogs
+Email:    joe.blogs@email.com
+Password: Blogsy
+
+Username: test121
+Email:    test121@gmail.com
+Password: test121
+
+Username: powerrangers
+Email:    stuff@email.com
+Password: Password123

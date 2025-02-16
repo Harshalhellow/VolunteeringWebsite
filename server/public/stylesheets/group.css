@@ -1,0 +1,158 @@
+/* Global Stuff */
+body{
+    margin: 2em;
+    height: 50em;
+    max-width: 10px;
+}
+
+img {
+    margin: auto;
+    width: 100px;
+    max-width: 100%;
+    height: 100px;
+    max-height: min-content;
+    justify-content: center;
+    object-fit: contain;
+}
+
+#name_desc {
+    max-width: 90%;
+}
+
+h1{
+    color:var(--textColor);
+}
+
+#checkBoxContainer{
+    width:78.5%;
+}
+
+form{
+    background-color: var(--color4);
+    color: var(--textColor);
+    padding:1em;
+    padding-left:2.98em;
+    padding-bottom:1.5em;
+    padding-right:1.5em;
+    width:12em;
+    z-index: 1;
+}
+
+button:hover {
+    background-color: var(--color2);
+}
+
+button:active {
+    background-color: var(--color2);
+}
+
+/* The rest is in order of appearance ig */
+
+
+
+#groupInformation{
+    width: 65em;
+    height: 30em;
+    display: inline-flex;
+}
+
+    #organisationInformation{
+        padding: 2em;
+        padding-top: 4em;
+        width: 45em;
+        height: auto;
+        text-justify: auto;
+    }
+
+        #groupDescription{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+    #side{
+        float: right;
+        padding: 1.6em;
+        padding-top: 6.3em;
+    }
+
+        #defaultKat{
+            width: 12em;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 2em;
+            display: block;
+        }
+
+    .adminButtons{
+        float:left;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        margin: 2px;
+    }
+
+    #adminForm{
+        position:fixed;
+        right:3em;
+        bottom:5em;
+    }
+
+#feed{
+    padding: 1em;
+    margin-left:3.5em;
+    width: 50em;
+    height: auto;
+    text-justify: auto;
+    outline: 2px solid var(--textColor);
+    display: grid;
+}
+
+
+    #tableToggle{
+        font-size: 16px;
+        background-color: var(--color1);
+        border: none;
+        outline: 2px solid var(--textColor);
+        color: var(--textColor);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #tableToggle button{
+        padding: 1em 6.111em;
+        background-color: var(--color1);
+        text-decoration: none;
+        font-size: 16px;
+        float: left;
+    }
+
+
+
+.createPopUpPost{
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#autoGeneratePosts{
+    background-color: var(--color4);
+    padding: 1em;
+    padding-left: 3em;
+    padding-bottom: 1.5em;
+}
+
+#autoGenerateEvents {
+    margin-top: 20px;
+    height: 300px;
+    overflow-y: scroll;
+    justify-content: center;
+}
+
+.event {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid var(--textColor);
+    color: var(--post-text-color);
+}
+
+

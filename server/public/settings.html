@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
+    <title>Settings</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="javascripts/settings.js" defer></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta name="google-signin-client_id"
+        content="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com">
+</head>
+
+<body>
+    <header>
+        <h1 id="pageTitle">Volunteering is Cool!</h1>
+        <div class="buttons" id="authButtons">
+            <a href="#login" id="loginButton">Login</a>
+            <a href="#signup" id="signupButton">Sign Up</a>
+            <div id="g_id_onload"
+                data-client_id="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div class="buttons" id="userProfileContainer" style="display: none;">
+            <span id="usernameDisplayToggle"></span>
+            <a href="/settings.html">Settings / Profile</a>
+            <button type="button" id="logoutButton" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="buttons">
+        <a href="/homepage.html" class="bubble">Home</a>
+        <a href="/volunteerGroups.html" class="bubble">Browse</a>
+        <div class="horizontal-line"></div>
+    </div>
+
+    <div class="mainContent">
+        <div id="app">
+            <div id="settingsPage">
+                <div id="btnSettingsTab">
+                    <button type="button" class="button" :class="{ buttonSelected: activeTab == 0 }"
+                        onclick="vueinst.activeTab = 0">Profile</button>
+                    <button type="button" class="button" :class="{ buttonSelected: activeTab == 1 }"
+                        onclick="vueinst.activeTab = 1">Settings</button>
+                    <button type="button" class="button" :class="{ buttonSelected: activeTab == 2 }"
+                        onclick="vueinst.activeTab = 2">Manage Groups</button>
+                </div>
+
+                <div id="profileTab" v-if="activeTab == 0">
+                    <img :src="profilePicPath" alt="Your profile picture" id="profilePic"
+                        onerror="this.src='images/profile/default.png';" />
+
+                    <form id="profilePicForm">
+                        <input type="file" name="file" accept=".png, image/png" />
+                        <input type="button" value="Upload Profile Picture" v-on:click="uploadProfilePic()" />
+                    </form>
+                    <br />
+                    <form>
+                        <label for="name">Name:</label>
+                        <input type="text" size="30" id="name" :value="username" @change="setUsername($event)" />
+                    </form>
+                </div>
+
+                <div id="settingsTab" v-if="activeTab == 1">
+                    <span>Email: <input type="text" id="email" :value="email" @change="setEmail($event)" /></span>
+                    <br />
+                    <span>Recieve email notifications? <input type="checkbox" id="emailNotifications"
+                            v-model="emailToggle" /></span>
+                    <br />
+                    <br />
+                    <div class="section">
+                        <strong>Change Password</strong>
+                        <div class="internalRule"></div>
+                        <form v-on:submit.prevent="changePassword()">
+                            <label for="newPassword1">New Passowrd:</label>
+                            <input type="password" size="20" id="newPassword1" v-model="newPassword" />
+                            <br />
+                            <label for="newPassword2">Repeat New Passowrd:</label>
+                            <input type="password" size="20" id="newPassword2" v-model="repeatedPassword" />
+                            <br />
+                            <label for="oldPassword">Old Password:</label>
+                            <input type="password" size="20" id="oldPassword" v-model="oldPassword" />
+                            <br />
+                            <span id="passwordSet" v-bind:style="{ color: passwordMessageColor }">{{ passwordMessage
+                                }}<button type="submit" style="float: right;">Update
+                                    Password</button></span>
+                        </form>
+                    </div>
+                    <br />
+                    <div class="section">
+                        <strong>Colors</strong>
+                        <div class="internalRule"></div>
+                        <div class="colorsSelection">
+                            <p>Navigation Bar</p>
+                            <p>Text & Borders</p>
+                            <p>Buttons</p>
+                            <p>Selected</p>
+                            <p>Background</p>
+                        </div>
+                        <div class="colorsSelection">
+                            <input type="color" class="colorPicker" onchange="vueinst.setColor('--color1', this.value)"
+                                :value="color1">
+                            <input type="color" class="colorPicker"
+                                onchange="vueinst.setColor('--textColor', this.value)" :value="textColor">
+                            <input type="color" class="colorPicker" onchange="vueinst.setColor('--color4', this.value)"
+                                :value="color4">
+                            <input type="color" class="colorPicker" onchange="vueinst.setColor('--color2', this.value)"
+                                :value="color2">
+                            <input type="color" class="colorPicker" onchange="vueinst.setColor('--color3', this.value)"
+                                :value="color3">
+                            <br />
+                            <button type="button" @click="setColorsToDefault()">Default</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mngGroupsTab" v-if="activeTab == 2">
+                    <button type="button" id="createNewGgroupBtn" v-on:click=openAdminForm>Create a New Group</button>
+                    <div class="form-popup" id="adminForm" style="display:none;">
+                        <form id="groupForm">
+                            <h2>Group Details</h2>
+                            <p> Make sure to enter all details !</p>
+
+                            <label>Group Details</label> <br>
+                            <label>Name of Group:</label>
+                            <input type="text" name="Group_Name" id="groupName" required>
+
+                            <label>Group Information:</label>
+                            <textarea name="Description" id="groupDescription">Introduce your group!</textarea>
+
+                            <label>Group Contact Info</label>
+                            <label>Email Address:</label>
+                            <textarea name="Email" id="emailField">Enter your email address</textarea>
+
+                            <label>Phone Number:</label>
+                            <textarea name="phoneNumber" id="phoneNumber">Enter your phone number</textarea>
+
+                            <button type="button" @click="createGroup()">Save Changes</button>
+                            <button type="button" class="closePopUp" v-on:click=closeAdminForm>Close</button>
+                        </form>
+                    </div>
+
+                    <div id="myGroups">
+                        <div class="groupBox" v-for="group in joinedGroups">
+                            <a style="display: block; color: var(--textColor); cursor: pointer;"
+                                @click="gotoGroup(group.groupID)">
+                                <img :src="group.imagePath" alt="Group Icon" id="groupPic"
+                                    onerror="this.src='images/group/default.png';" />
+                                <p style="float: left;">{{ group.Group_Name }}</p>
+                            </a>
+                            <button type="button" id="groupLeaveBtn"
+                                v-on:click="leaveGroup(group.groupID)">Leave</button>
+                            <input type="image" alt="Notifications Button" id="groupNotificationsBtn"
+                                src="images/settings/notifications.png"
+                                :class="{notificationsOff: group.Email_Preference === 0}"
+                                v-on:click="toggleGroupEmails(group.groupID, group.Email_Preference)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Contact us or don't. I care.</p>
+    </footer>
+
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('loginPopup')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="email">Email:</label>
+                <input type="text" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('signupPopup')">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" required>
+                <br>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="signupPassword" name="password" required>
+                <br>
+                <label for="retypePassword">Retype Password:</label>
+                <input type="password" id="retypePassword" name="retypePassword" required>
+                <br>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

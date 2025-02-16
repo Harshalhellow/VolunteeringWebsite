@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Default Group Page</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/group.css">
+    <link rel="stylesheet" href="stylesheets/stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="javascripts/group.js" defer></script>
+    <script src="javascripts/Login.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1 id="pageTitle">Volunteering is Cool!</h1>
+        <div class="buttons" id="authButtons">
+            <a href="#login" id="loginButton">Login</a>
+            <a href="#signup" id="signupButton">Sign Up</a>
+            <div id="g_id_onload"
+                data-client_id="910246570713-dj7bu1ljijs1mi62n6t130cb381aa713.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div class="buttons" id="userProfileContainer" style="display: none;">
+            <span id="usernameDisplayToggle"></span>
+            <a href="/settings.html">Settings / Profile</a>
+            <button type="button" id="logoutButton" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="buttons">
+        <a href="/homepage.html" class="bubble">Home</a>
+        <a href="/volunteerGroups.html" class="bubble">Browse</a>
+        <div class="horizontal-line"></div>
+    </div>
+
+
+    <div class="mainContent">
+        <!-- Main Content -->
+        <!-- Organisation Information -->
+        <div id="defaultGroupPage">
+            <div id="groupInformation">
+                <div id="organisationInformation">
+                    <section id="name_desc">
+                        <h1>{{groupInformation[0].Group_Name}}</h1>
+                        <p> {{groupInformation[0].Description}}</p>
+                    </section>
+
+                    <div class="form-popup" id="adminForm" style="display:none;">
+                        <form>
+                            <h2>Group Details</h2>
+                            <p> Make sure to enter all details !</p>
+
+                            <label>Group Details</label> <br>
+                            <label>Name of Group:</label>
+                            <input type="text" name="Group_Name" id="groupName" required>
+
+                            <label>Group Information:</label>
+                            <textarea name="Description" id="groupDescription">Introduce your group!</textarea>
+
+                            <label>Group Contact Info</label>
+                            <label>Email Address:</label>
+                            <textarea name="Email" id="emailField">Enter your email address</textarea>
+
+                            <label>Phone Number:</label>
+                            <textarea name="phoneNumber" id="phoneNumber">Enter your phone number</textarea>
+
+                            <button type="button" @click="createGroup()">Save Changes</button>
+                            <button type="button" class="closePopUp" v-on:click=closeAdminForm>Close</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Side -->
+                <div id="side">
+                    <img :src=" 'images/group/' + groupInformation[0].groupID + '.png' " alt="Group Icon" id="groupPic"
+                        onerror="this.src='images/group/default.png';" />
+                    <p>Phone Number: {{ groupInformation[0].phoneNumber }} </p>
+                    <p>Email: {{ groupInformation[0].Email }}</p>
+                </div>
+            </div>
+
+
+            <!-- Feed -->
+            <div id="feed">
+                <!-- Tabs -->
+                <div id="tableToggle">
+                    <button type="button" id="postsToggle" v-on:click=openPostsTab>Posts</button>
+                    <button type="button" id="eventsToggle" v-on:click=openEventsTab>Events</button>
+                    <button type="button" id="membersToggle" v-on:click=openJMembersTab>Joined Members</button>
+                    <!--<button type="button" id="qAndAToggle" v-on:click=openQANDATab>Questions and Answers</button>-->
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tabs">
+                    <!-- Posts Tab -->
+                    <div id="postsTab" style="display:block;">
+                        <br>
+                        <button class="pop-upButton createPopUpPost" type="button" v-on:click=openPForm> Create a
+                            Post</button>
+
+                        <!-- Create a Post -->
+                        <div class="form-popup" id="crtPostPopUp" style="display:none">
+                            <form id="postForm">
+                                <h2>Create A Post</h2>
+                                <div id="postLabels">
+                                    <label for="post-title">Post Title: </label>
+                                    <input type="text" id="postTitle" name="postTitle" required> <br>
+
+                                    <br>
+
+                                    <label>Post Description:</label>
+                                    <textarea id="postDescription" name="postDescription">Enter Content:</textarea>
+                                </div>
+                                <br>
+                                <br>
+                                <button type="button" @click="addPost()" class="submitButton"
+                                    value="Submit">Submit</button>
+                                <button type="button" class="closePopUp" @click="closePForm">Close</button>
+                            </form>
+                        </div>
+
+
+
+                        <!-- AutoGenerate Posts Here -->
+                        <div id="autoGeneratePosts" v-for="item in posts">
+                            <!--<h2> {{item.Group_Name}} </h2>-->
+                            <h3> {{item.Post_Category}}: {{item.Post_Title}} </h3>
+                            <p> {{item.Description}} </p>
+                            <br>
+                        </div>
+                    </div>
+
+
+                    <div id="eventsTab" style="display:none;">
+                        <br>
+                        <button type="button" class="createPopUpPost form-popup" v-on:click="openEForm">Create an
+                            Event</button>
+
+                        <!-- Create an Event -->
+                        <div class="form-popup" id="crtEventPopUp" style="display:none">
+                            <form id="eventForm">
+                                <h2>Create an Event</h2>
+                                <div>
+                                    <label>Event Title: </label>
+                                    <input type="text" id="eventTitle" name="eventTitle" required>
+                                    <br>
+                                    <label>Event Description:</label>
+                                    <textarea id="eventDescription"
+                                        name="eventDescription">Include Time and Date as well as the event location!</textarea>
+                                </div>
+                                <button type="button" @click="addEvent()" class="submitButton"
+                                    value="Submit">Submit</button>
+                                <button type="button" class="closePopUp" v-on:click="closeEForm">Close</button>
+                            </form>
+                        </div>
+
+                        <!-- AutoGenerate Events Here -->
+                        <div class="event" id="autoGenerateEvents" v-for="item in events" :key="item.eventID"
+                            class="event-item">
+                            <h3>{{ item.eventTitle }}</h3>
+                            <p>{{ item.eventDescription }}</p>
+                            <button @click="joinEvent(item.eventID)">Join Event</button>
+                        </div>
+                    </div>
+
+
+                    <!-- Joined Members Tab -->
+                    <div id="joinedMembers" style="display:none;">
+                        <!-- Autogenerate Members Joined here -->
+                        <p v-for="item in joinedMembers">{{item.Username}}</p>
+
+                    </div>
+
+                    <!-- Q and A Tab -->
+                    <!--
+                <br>
+                <div id="qAndATab" style="display:none;">
+                    <button type="button" class="createPopUpPost form-popup" v-on:click=openQForm> Ask a Question </button>
+                    <div class="form-popup" id="crtQuestionPopUp" style="display:none">
+                        <form>
+                            <h2> Ask a Question </h2>
+                            <label>Question Title: </label>
+                            <textarea>Enter Title: </textarea>
+
+                            <label>Question Description:</label>
+                            <textarea>Enter Content:</textarea>
+
+
+                            <div id="checkBoxContainer">
+                                <span>
+                                    <label>Public</label>
+                                    <input type="checkbox">
+                                </span>
+
+                                <span>
+                                    <label>Private</label>
+                                    <input type="checkbox">
+                                </span>
+                            </div>
+                            <button type="submit" class="submitButton" value="Submit">Submit</button>
+                            <button type="button" class="closePopUp" v-on:click=closeQForm>Close</button>
+                        </form>
+                    </div>
+
+                    <br>
+                    <p>Question 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.
+                    </p>
+                    <p>Question 2: so on so on</p>
+                    <br>
+                </div>
+                -->
+
+
+                </div> <!-- End of Feed -->
+            </div> <!-- End of Page -->
+
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p>Contact us or don't. I care.</p>
+    </footer>
+
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('loginPopup')">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="email">Email:</label>
+                <input type="text" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('signupPopup')">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="email" required>
+                <br>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="signupPassword" name="password" required>
+                <br>
+                <label for="retypePassword">Retype Password:</label>
+                <input type="password" id="retypePassword" name="retypePassword" required>
+                <br>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
